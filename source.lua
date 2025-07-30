@@ -3717,10 +3717,10 @@ do
     --
     function sections:AddToggle(info)
         local info = info or {}
-        local name = info.name or info.Name or info.title or info.Title or "New"
+        local Name = info.name or info.Name or info.title or info.Title or "New"
         local def = info.def or info.Def or info.default or info.Default or false
         local pointer = info.pointer or info.Pointer or info.flag or info.Flag or nil
-        local callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
+        local Callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
         --
         local window = self.window
         local page = self.page
@@ -4648,24 +4648,24 @@ do
     --
     function sections:AddSlider(info)
         local info = info or {}
-        local name = info.name or info.Name or info.title or info.Title
-        local def = info.def or info.Def or info.default or info.Default or 10
-        local min = info.min or info.Min or info.minimum or info.Minimum or 0
-        local max = info.max or info.Max or info.maximum or info.Maximum or 100
+        local Name = info.name or info.Name or info.title or info.Title
+        local Default = info.def or info.Def or info.default or info.Default or 10
+        local Min = info.min or info.Min or info.minimum or info.Minimum or 0
+        local Max = info.max or info.Max or info.maximum or info.Maximum or 100
         local maxtext = info.maximumtext or info.Maximumtext or info.maximumText or info.MaximumText or max
         local sub = info.suffix or info.Suffix or info.ending or info.Ending or info.prefix or info.Prefix or info.measurement or info.Measurement or ""
         local disable = info.disable or info.Disable or info.disabled or info.disabled or false
         local decimals = info.decimals or info.Decimals or 1
         decimals = 1 / decimals
         local pointer = info.pointer or info.Pointer or info.flag or info.Flag or nil
-        local callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
+        local Callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
         def = math.clamp(def, min, max)
         --
         local window = self.window
         local page = self.page
         local section = self
         --
-        local slider = {min = min, max = max, Disabled = false, sub = sub, decimals = decimals, axis = section.currentAxis, current = -99999, holding = false}
+        local slider = {Min = min, Max = max, Disabled = false, sub = sub, decimals = decimals, axis = section.currentAxis, current = -99999, holding = false}
         --
         if name then
             local slider_title = utility:Create("TextLabel", {Vector2.new(4,slider.axis), section.section_frame}, {
@@ -4813,9 +4813,9 @@ do
     --
     function sections:AddButton(info)
         local info = info or {}
-        local name = info.name or info.Name or info.title or info.Title or "New Button"
+        local Name = info.name or info.Name or info.title or info.Title or "New Button"
         local pointer = info.pointer or info.Pointer or info.flag or info.Flag or nil
-        local callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
+        local Callback = info.callback or info.callBack or info.Callback or info.CallBack or function()end
         --
         local window = self.window
         local page = self.page

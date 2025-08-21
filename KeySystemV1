@@ -1,0 +1,280 @@
+-- Services
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Whitelisted usernames (no key required)
+local WHITELISTED_USERS = {
+    "BestRobloxDev101",  -- Replace with your username
+    "ioicat_f11",
+    "sxrfwr"
+   
+}
+
+-- Key System Configuration
+local VALID_KEYS = {
+    "S3X671-R34T6-QRW5UQ"
+
+}
+
+-- Check if player is whitelisted
+local function isPlayerWhitelisted()
+    local playerName = string.lower(player.Name)
+    
+    for _, whitelistedName in ipairs(WHITELISTED_USERS) do
+        if string.lower(whitelistedName) == playerName then
+            return true
+        end
+    end
+    
+    return false
+end
+
+-- If player is whitelisted, skip the key system
+if isPlayerWhitelisted() then
+    print("Player is whitelisted - granting immediate access")
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Welcome, Whitelisted", -- Required
+	Text = player.Name, -- Required
+	Duration = 3
+})
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/UsmanLOOL/roblox-stuff/refs/heads/main/SABMenuV4.lua"))()
+    return  -- Exit the script, no UI needed
+end
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeySystemUI"
+screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = false
+
+-- Main Container
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 350, 0, 220)
+mainFrame.Position = UDim2.new(0.5, -175, 0.5, -110)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+mainFrame.BackgroundTransparency = 0.05
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+-- Corner Radius
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = mainFrame
+
+-- Drop Shadow
+local shadow = Instance.new("ImageLabel")
+shadow.Size = UDim2.new(1, 20, 1, 20)
+shadow.Position = UDim2.new(0, -10, 0, -10)
+shadow.BackgroundTransparency = 1
+shadow.Image = "rbxassetid://5554236805"
+shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+shadow.ImageTransparency = 0.8
+shadow.ScaleType = Enum.ScaleType.Slice
+shadow.SliceCenter = Rect.new(23, 23, 277, 277)
+shadow.Parent = mainFrame
+shadow.ZIndex = -1
+
+-- Header
+local header = Instance.new("Frame")
+header.Size = UDim2.new(1, 0, 0, 45)
+header.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+header.BorderSizePixel = 0
+header.Parent = mainFrame
+
+local headerCorner = Instance.new("UICorner")
+headerCorner.CornerRadius = UDim.new(0, 12)
+headerCorner.Parent = header
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -60, 1, 0)
+title.Position = UDim2.new(0, 20, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "KEY SYSTEM"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 18
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = header
+
+-- Close Button
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -1, 1, -30)
+closeButton.AnchorPoint = Vector2.new(1, 0.5)
+closeButton.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+closeButton.BorderSizePixel = 0
+closeButton.Text = "×"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextSize = 20
+closeButton.Font = Enum.Font.GothamBold
+closeButton.Parent = header
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 8)
+closeCorner.Parent = closeButton
+
+-- Close button hover effects
+closeButton.MouseEnter:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+end)
+
+closeButton.MouseLeave:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+end)
+
+-- Close functionality
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- Content Area
+local content = Instance.new("Frame")
+content.Size = UDim2.new(1, -40, 1, -85)
+content.Position = UDim2.new(0, 20, 0, 55)
+content.BackgroundTransparency = 1
+content.Parent = mainFrame
+
+-- Input Label
+local inputLabel = Instance.new("TextLabel")
+inputLabel.Size = UDim2.new(1, 0, 0, 20)
+inputLabel.BackgroundTransparency = 1
+inputLabel.Text = "ENTER ACCESS KEY:"
+inputLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+inputLabel.TextSize = 12
+inputLabel.Font = Enum.Font.Gotham
+inputLabel.TextXAlignment = Enum.TextXAlignment.Left
+inputLabel.Parent = content
+
+-- Key Input Box
+local keyInput = Instance.new("TextBox")
+keyInput.Size = UDim2.new(1, 0, 0, 40)
+keyInput.Position = UDim2.new(0, 0, 0, 25)
+keyInput.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+keyInput.BorderSizePixel = 0
+keyInput.Text = ""
+keyInput.PlaceholderText = "Type your key here..."
+keyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+keyInput.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
+keyInput.TextSize = 14
+keyInput.Font = Enum.Font.Gotham
+keyInput.ClearTextOnFocus = false
+keyInput.Parent = content
+
+local inputCorner = Instance.new("UICorner")
+inputCorner.CornerRadius = UDim.new(0, 8)
+inputCorner.Parent = keyInput
+
+-- Submit Button
+local submitButton = Instance.new("TextButton")
+submitButton.Size = UDim2.new(1, 0, 0, 40)
+submitButton.Position = UDim2.new(0, 0, 0, 75)
+submitButton.BackgroundColor3 = Color3.fromRGB(65, 140, 240)
+submitButton.BorderSizePixel = 0
+submitButton.Text = "VALIDATE KEY"
+submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+submitButton.TextSize = 14
+submitButton.Font = Enum.Font.GothamBold
+submitButton.Parent = content
+
+local submitCorner = Instance.new("UICorner")
+submitCorner.CornerRadius = UDim.new(0, 8)
+submitCorner.Parent = submitButton
+
+-- Status Message
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, 0, 0, 20)
+statusLabel.Position = UDim2.new(0, 0, 0, 125)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = ""
+statusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+statusLabel.TextSize = 12
+statusLabel.Font = Enum.Font.Gotham
+statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+statusLabel.Parent = content
+
+-- Key validation function
+local function isValidKey(inputKey)
+    inputKey = string.upper(inputKey):gsub("%s+", "")
+    
+    for _, validKey in ipairs(VALID_KEYS) do
+        if inputKey == validKey then
+            return true
+        end
+    end
+    
+    return false
+end
+
+-- Function to grant access (replace with your actual access code)
+local function grantAccess()
+    print("Access granted to player: " .. player.Name)
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Access Granted To:", -- Required
+	Text = player.Name, -- Required
+	Duration = 3
+})
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/UsmanLOOL/roblox-stuff/refs/heads/main/SABMenuV4.lua"))()
+    
+    -- Optionally close the UI after successful validation
+    task.wait(2)
+    screenGui:Destroy()
+end
+
+-- Submit button functionality
+submitButton.MouseButton1Click:Connect(function()
+    local inputKey = keyInput.Text
+    local cleanedKey = string.upper(inputKey):gsub("%s+", "")
+    
+    if cleanedKey == "" then
+        statusLabel.Text = "Please enter a key"
+        statusLabel.TextColor3 = Color3.fromRGB(255, 180, 60)
+        return
+    end
+    
+    if isValidKey(cleanedKey) then
+        statusLabel.Text = "✓ Key accepted! Access granted."
+        statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+        
+        -- Success animation
+        submitButton.BackgroundColor3 = Color3.fromRGB(80, 200, 80)
+        
+        -- Grant access
+        grantAccess()
+        
+    else
+        statusLabel.Text = "✗ Invalid key. Please try again."
+        statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+        
+        -- Error animation
+        submitButton.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+        task.wait(0.5)
+        submitButton.BackgroundColor3 = Color3.fromRGB(65, 140, 240)
+    end
+end)
+
+-- Enter key to submit
+keyInput.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        submitButton:Activate()
+    end
+end)
+
+-- Button hover effects
+submitButton.MouseEnter:Connect(function()
+    submitButton.BackgroundColor3 = Color3.fromRGB(75, 150, 255)
+end)
+
+submitButton.MouseLeave:Connect(function()
+    submitButton.BackgroundColor3 = Color3.fromRGB(65, 140, 240)
+end)
+
+keyInput.Focused:Connect(function()
+    keyInput.BackgroundColor3 = Color3.fromRGB(55, 55, 65)
+end)
+
+keyInput.FocusLost:Connect(function()
+    keyInput.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+end)

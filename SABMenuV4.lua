@@ -1,5 +1,3 @@
-local function a()local b=getrawmetatable(game:GetService("TeleportService"))if not b then return false end;local c=b.__index;setreadonly(b,false)b.__index=function(self,d)if d=="Teleport"or d=="TeleportAsync"or d=="TeleportToPlaceInstance"or d=="TeleportToPrivateServer"then warn("TeleportService."..d.." access blocked")return function()warn("TeleportService."..d.." call prevented")return nil end end;return c(self,d)end;setreadonly(b,true)return true end;local function e()local f=getrawmetatable(game)if f then local g=f.__newindex;setreadonly(f,false)f.__newindex=function(self,d,h)if tostring(self)=="TeleportService"and(d=="Teleport"or d=="TeleportAsync")then warn("Attempt to modify TeleportService."..d.." blocked")return nil end;return g(self,d,h)end;setreadonly(f,true)end end;if a()then e()warn("TeleportService blocked")else warn("Failed to block TeleportService")end;if not getgenv then getgenv=getfenv end;getgenv().TeleportBlockerActive=true
-
 
 
 

@@ -76,7 +76,7 @@ outerFolder.Parent = game.Players.LocalPlayer.PlayerGui
 print("Created nested folders: OuterFolder > MiddleFolder > InnerFolder")
 
 local Orion = Instance.new("ScreenGui")
-Orion.Name = "Orion"
+Orion.Name = "CXVZI-OSP1X-M3CRYA-OED"
 if syn then
 	syn.protect_gui(Orion)
 	Orion.Parent = Z

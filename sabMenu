@@ -1,3 +1,3 @@
 -- dont even try lol 
 
-loadstring(game:HttpGet("https://scriptprotector.vercel.app/api/raw/1ba742f0c720465ac185f5bc3eff91e4"))()
+loadstring(game:HttpGet("https://scriptprotector.vercel.app/api/raw/8efcd6c76c2ec4e6b3d971008d13333c"))()

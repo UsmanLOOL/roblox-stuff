@@ -1,4 +1,4 @@
---// Modern UI Library v2 //--
+--// Mercury UI Library Source LOL
 local Library = {}
 Library.__index = Library
 
